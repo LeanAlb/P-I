@@ -4,7 +4,7 @@ const {Pokemon}=require ('../db')
 
 const getAllPokemons= async (req, res)=>{
     try{
-        const response= await axios.get(URL)
+        const response= await axios.get(`${URL}/?limit=150&offset=0`)
         res.status(200).json(response.data)
     } catch(error){
         res.status(400).json({error: 'Ha ocurrido un error'})
@@ -14,11 +14,31 @@ const getAllPokemons= async (req, res)=>{
 const getPokemonId=async(req, res)=>{
     const {id}=req.params;
     try{
-        const response=await axios.get(`${URL}/${id}`)
+        const response=await axios.get(`${URL}/${id}/`)
         res.status(200).json(response.data)
     } catch(error){
         res.status(400).json({error: 'No hay pokemons con ese ID'})
     }
 }
 
-module.exports={getAllPokemons}
+const getPokemonName=async (req, res)=>{
+    const {name}=req.params;
+    try{
+        const response=await axios.get(`${URL}/${name}/`)
+        res.status(200).json(response.data)
+    } catch (error){
+        res.status(400).json({error: 'No hay pokemons con ese nombre'})
+    }
+}
+
+const getPokemonType=async (req, res)=>{
+    const {id}=req.params
+    try{
+        const response= await axios.get(`https://pokeapi.co/api/v2/type/${id}`)
+        res.status(200).json(response.data)
+    } catch (error){
+        res.status(400).json({error: 'No hay pokemons de ese tipo'})
+    }
+}
+
+module.exports={getAllPokemons, getPokemonId, getPokemonName, getPokemonType}
