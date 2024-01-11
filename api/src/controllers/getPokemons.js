@@ -1,6 +1,7 @@
 const axios = require ('axios')
 const URL= 'https://pokeapi.co/api/v2/pokemon'
-const {Pokemon}=require ('../db')
+const {Pokemon, Type}=require ('../db')
+const { Sequelize } = require('sequelize')
 
 const getAllPokemons= async (req, res)=>{
     try{
@@ -41,4 +42,32 @@ const getPokemonType=async (req, res)=>{
     }
 }
 
-module.exports={getAllPokemons, getPokemonId, getPokemonName, getPokemonType}
+const postPokemon=async (req, res)=>{
+    const {id, nombre, imagen, vida, ataque, defensa, types}=req.body;
+    try{
+        const pokemonCreado=await Pokemon.create({
+            id,
+            nombre,
+            imagen,
+            vida, 
+            ataque, 
+            defensa,
+        });
+        const encontrarType=await Type.findAll({
+            where:{
+                name:{
+                    [Sequelize.Op.in]:types,
+                },
+            },
+        });
+
+        await pokemonCreado.addType(encontrarType);
+
+        res.status(200).json(pokemonCreado)
+    }catch(error){
+        res.status(500).json({error: 'Error al crear el pokemon'})
+    }
+
+}
+
+module.exports={getAllPokemons, getPokemonId, getPokemonName, getPokemonType, postPokemon}
