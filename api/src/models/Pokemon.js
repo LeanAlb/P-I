@@ -9,23 +9,23 @@ module.exports = (sequelize) => {
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4
     },
-    nombre: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    imagen:{
+    image:{
       type: DataTypes.STRING,
       allowNull: false
     },
-    vida:{
+    life:{
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    ataque:{
+    attack:{
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    defensa:{
+    defense:{
       type: DataTypes.INTEGER,
       allowNull: false
     }
