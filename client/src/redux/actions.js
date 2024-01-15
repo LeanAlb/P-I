@@ -14,4 +14,17 @@ export const showPokemons=()=>{
     }
 };
 
+export const changePage=(order)=>{
+    return async (dispatch)=>{
+        try {
+           dispatch({
+            type: "PAGINATION",
+            payload: order
+           }) 
+        } catch (error) {
+            throw Error('Error al paginar')
+        }
+    }
+}
+
 

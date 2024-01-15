@@ -15,17 +15,17 @@
   }
   
   .card img {
-    width: 300px; /* Establece un ancho fijo para todas las imágenes */
-    height: 300px; /* Establece una altura fija para todas las imágenes */
-    object-fit: fill; /* Ajusta la imagen manteniendo la proporción y cubriendo el área designada */
+    width: 100px; 
+    height: 100px; 
+    object-fit: fill; 
     border-radius: 8px;
   }
   
   .button {
     background-color: #4caf50;
     color: white;
-    padding: 12px 20px; /* Ajusta el padding para aumentar el espacio */
-    border: 2px solid #4caf50; /* Ajusta el grosor y el color del borde */
+    padding: 12px 20px; 
+    border: 2px solid #4caf50; 
     border-radius: 4px;
     text-decoration: none;
     cursor: pointer;
