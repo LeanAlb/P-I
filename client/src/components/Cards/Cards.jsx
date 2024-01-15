@@ -2,7 +2,6 @@ import Card from "../Card/Card";
 import style from './Cards.module.css'
 
 const Cards=({pokemons})=>{
-    console.log(pokemons, 'results desde cards')
     return(
         <div className={style.cards}>
             {
@@ -11,7 +10,7 @@ const Cards=({pokemons})=>{
                     key={index}
                     id={index+1}
                     nombre={pokemon.name}
-                    imagen={pokemon.url}
+                    imagen={pokemon.image}
                     // image={pokemons.image && pokemons.image.url}
                     />
                 })

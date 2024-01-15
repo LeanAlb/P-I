@@ -1,7 +1,9 @@
 import { showPokemons } from "./actions";
 
 const initialState={
-    allPokemons:[]
+    allPokemons:[],
+    pokemonByName:[],
+    pokemonDetail: []
 }
 
 const reducer=(state=initialState, actions)=>{
