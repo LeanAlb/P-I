@@ -5,7 +5,7 @@ const { Sequelize } = require('sequelize')
 
 const getAllPokemons= async (req, res)=>{
     try{
-        const response= await axios.get(`${URL}/?limit=150&offset=0`)
+        const response= await axios.get(`${URL}/?limit=1302&offset=0`)
         res.status(200).json(response.data.results)
     } catch(error){
         res.status(400).json({error: 'Ha ocurrido un error'})
