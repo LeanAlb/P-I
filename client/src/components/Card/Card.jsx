@@ -1,11 +1,12 @@
 import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import { showPokemons } from '../../redux/actions'
 import style from './Card.module.css'
 
 
-const Card=({id, name, imagen})=>{
+const Card=({nombre, id, imagen})=>{
+
     const dispatch=useDispatch()
     const allPokemons=useSelector((state)=>state.allPokemons)
     useEffect(()=>{
@@ -13,15 +14,19 @@ const Card=({id, name, imagen})=>{
             dispatch(showPokemons())
         }
     },[])
+    if(!allPokemons.length){
+        return(
+            <div>
+                ...Cargando
+            </div>
+        )
+    }
     return(
         <div>
-            <Link to={`/pokemons/${id}`}>
-                <button>
-                    <h3>Nombre: {name}</h3>
-                    <h3>id: {id}</h3>
-                    {/* <img src={imagen} alt={nombre} /> */}
-                </button>
-            </Link>
+            <h3>Nombre: {nombre}</h3>
+            <h3>ID: {id}</h3>
+            <img src={imagen} alt={nombre}/>
+            
         </div>
     )
 }
