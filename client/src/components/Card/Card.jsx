@@ -1,11 +1,10 @@
+// Card.jsx
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { showPokemons } from '../../redux/actions';
-import {Link} from 'react-router-dom'
-
+import { Link } from 'react-router-dom';
 import style from './Card.module.css';
-
 
 const Card = ({ nombre, id }) => {
   const dispatch = useDispatch();

@@ -1,10 +1,19 @@
+// reducer.js
 import { showPokemons } from "./actions";
 
 const initialState = {
   allPokemons: [],
-  allPokemonsBackUp: [],  
+  allPokemonsBackUp: [],
   currentPage: 0,
-  typeFiltered: []
+  typeFiltered: [],
+  newPokemon: {
+    name: '',
+    image: '',
+    life: 0,
+    attack: 0,
+    defense: 0,
+    types: '',
+  },
 };
 
 const reducer = (state = initialState, actions) => {
@@ -23,38 +32,39 @@ const reducer = (state = initialState, actions) => {
         actions.payload === "next" ? nextPage * itemsPerPage : prevPage * itemsPerPage;
 
       const allPokemonsCopy = [...state.allPokemonsBackUp];
-      if (actions.payload ==="next" && firstIndex>= state.allPokemonsBackUp.length)return state;
-      if (actions.payload ==="prev" && prevPage<0) return state;
+      if (actions.payload === "next" && firstIndex >= state.allPokemonsBackUp.length) return state;
+      if (actions.payload === "prev" && prevPage < 0) return state;
       return {
         ...state,
         allPokemons: allPokemonsCopy.splice(firstIndex, itemsPerPage),
         currentPage: actions.payload === "next" ? nextPage : prevPage,
       };
-    case "SELECTOR":
-      if(actions.payload=== "normal"){}
-      if(actions.payload=== "poison"){}
-      if(actions.payload=== "bug"){}
-      if(actions.payload=== "fire"){}
-      if(actions.payload=== "electric"){}
-      if(actions.payload=== "dragon"){}
-      if(actions.payload=== "fighting"){}
-      if(actions.payload=== "ground"){}
-      if(actions.payload=== "ghost"){}
-      if(actions.payload=== "water"){}
-      if(actions.payload=== "psychic"){}
-      if(actions.payload=== "dark"){}
-      if(actions.payload=== "shadow"){}
-      if(actions.payload=== "flying"){}
-      if(actions.payload=== "rock"){}
-      if(actions.payload=== "steel"){}
-      if(actions.payload=== "grass"){}
-      if(actions.payload=== "ice"){}
-      if(actions.payload=== "fairy"){}
-      if(actions.payload=== "unknown"){}
-      return{
+      case "SELECTOR":
+        return {
+          ...state,
+          typeFiltered: actions.payload === "all" ? [] : [actions.payload], // Puede variar según la estructura de tu estado
+        };
+    case "CREATE_POKEMON":
+      
+      return {
         ...state,
         
-      }
+        allPokemonsBackUp: [...state.allPokemonsBackUp, actions.payload],
+        
+        allPokemons: state.typeFiltered.length
+          ? state.allPokemons.filter((pokemon) =>
+              pokemon.types.some((type) => state.typeFiltered.includes(type))
+            )
+          : state.allPokemons,
+      };
+    case "UPDATE_NEW_POKEMON":
+      return {
+        ...state,
+        newPokemon: {
+          ...state.newPokemon,
+          ...actions.payload,
+        },
+      };
 
     default:
       return { ...state };
