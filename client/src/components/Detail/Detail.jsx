@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { showPokemons } from '../../redux/actions'
 import style from './Detail.module.css'
+import { Link } from 'react-router-dom'
 
 
 
@@ -110,6 +111,7 @@ const Detail = () => {
                         ))}
                 </ul>
             </article>
+            <Link to={'/home'}><button>Home</button></Link>
         </div>
     )
 }

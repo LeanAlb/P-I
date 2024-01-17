@@ -11,4 +11,32 @@
     flex-direction:column;
     overflow-y: scroll;
   }
+  
 
+.typeSelector {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+#tipo {
+  margin-left: 10px;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+#tipo:hover {
+  border-color: #fa0d08;
+}
+
+
+.typeLabel {
+  font-size: 16px;
+  color: #17ad99; 
+  font-weight: 500;
+  margin-right: 10px;
+}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import style from './SearchBar.module.css';
+import { Link } from "react-router-dom";
 
 const SearchBar = () => {
     const [name, setName] = useState('');
@@ -11,7 +12,6 @@ const SearchBar = () => {
     }
 
     const handleSearch = () => {
-        // Realiza la redirección a la ruta específica
         navigate(`/pokemons/${name}`);
     }
 
@@ -19,6 +19,7 @@ const SearchBar = () => {
         <div>
             <input type="text" value={name} onChange={handleChange} className={style.bar} />
             <button onClick={handleSearch}>Buscar</button>
+            <Link to={'/pokemons'}><button>Crear Pokemon</button></Link>
         </div>
     )
 }

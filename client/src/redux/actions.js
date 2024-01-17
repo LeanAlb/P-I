@@ -26,5 +26,10 @@ export const changePage=(order)=>{
         }
     }
 }
-
+// En tu archivo de acciones (actions.js)
+export const typeSelector = (selectedType) => ({
+    type: "TYPE_SELECTOR",
+    payload: selectedType,
+  });
+  
 
