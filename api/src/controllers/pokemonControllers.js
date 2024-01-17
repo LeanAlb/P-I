@@ -32,34 +32,58 @@ const getPokemonName=async (req, res)=>{
     }
 }
 
-const getPokemonType = async () => {
+
+const getPokemonType = async (req, res) => {
   try {
-    const response = await axios.get("https://pokeapi.co/api/v2/type");
+    
+    const response = await axios.get('https://pokeapi.co/api/v2/type');
 
     if (response && response.data && response.data.results) {
       const typesFromAPI = response.data.results;
 
-      const typesToSave = typesFromAPI.map(async (type) => {
-        const typeDetails = await axios.get(type.url);
+      
+      const countTypesInDB = await Type.count();
 
-        const savedType = await Type.create({
-          name: typeDetails.data.name,
-          url: typeDetails.data.url,
+      
+      if (countTypesInDB === 0) {
+        const typesToSave = typesFromAPI.map(async (type) => {
+          
+          const typeDetailsResponse = await axios.get(type.url);
+          const typeName = typeDetailsResponse.data.name;
+
+          
+          const [savedType, created] = await Type.findOrCreate({
+            where: { name: typeName },
+          });
+
+          return savedType;
         });
 
-        return savedType;
-      });
+        
+        const savedTypes = await Promise.all(typesToSave);
 
-      const savedTypes = await Promise.all(typesToSave);
+        console.log('Tipos guardados en la base de datos:', savedTypes.map(type => type.name));
 
-      console.log("Tipos guardados en la base de datos:", savedTypes);
+        
+        res.status(200).json(savedTypes.map(type => type.name));
+      } else {
+        console.log('La base de datos ya contiene tipos. No se guardaron nuevos tipos.');
+
+        
+        res.status(200).json('La base de datos ya contiene tipos. No se guardaron nuevos tipos.');
+      }
     }
   } catch (error) {
-    console.error('Error al obtener tipos de Pokémon:', error);
+    console.error('Error al obtener/guardar tipos de Pokémon:', error);
+
+    
+    res.status(400).json({ error: 'Error al cargar los tipos' });
   }
-    
-    
 };
+
+
+
+
 
 
 
